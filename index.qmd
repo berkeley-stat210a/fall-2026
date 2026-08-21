@@ -18,9 +18,9 @@ If you are an undergraduate who wants to take this course, please fill out the [
 ## Resources
 
 -   [Syllabus](syllabus.qmd) for basic course information
--   [Gradescope](https://www.gradescope.com/courses/1052658) for turning in homework
--   [EdStem](https://edstem.org/us/courses/79667/) for announcements and technical discussion (no homework spoilers!)
--   [bCourses](https://bcourses.berkeley.edu/courses/1545213) for lecture videos and homework solutions
+-   [Gradescope](https://www.gradescope.com/courses/1355311) for turning in homework
+-   [EdStem](https://edstem.org/us/courses/101895/) for announcements and technical discussion (no homework spoilers!)
+-   [bCourses](https://bcourses.berkeley.edu/courses/1557687) for lecture videos and homework solutions
 
 ## Schedule
 

@@ -34,6 +34,7 @@ website:
           - reader/sufficiency.qmd
           - reader/completeness.qmd
           - reader/unbiased-estimation.qmd
+          - reader/score-fisher.qmd
           - reader/bayes-estimation.qmd
           - reader/bayes-interpretation.qmd
           - reader/bayes-computation.qmd
