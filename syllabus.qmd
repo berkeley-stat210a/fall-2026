@@ -101,7 +101,7 @@ Your final grade is based on:
 
 **Tutorial Sections (new this semester):** Beginning the week of September 14, every student will attend a recurring one-hour weekly small-group tutorial section, with mandatory attendance, framed around discussion the previous week's homework and course material. You should come prepared to solve problems from the previous week's homework, either orally on the board or on paper, without notes. For oral presentations, you may be asked questions about steps as you go. Your odds of scoring well will be higher if you have read and understood the solutions. Your grade will be based on your best $8 + \lceil n/2\rceil$ solutions, where $n$ is the number of times you are called on.
 
-**Excused absence policy:** If you need to miss a tutorial, use the [excused absence form]() to explain why. These are intended to cover eventualities like excused absences, medical issues, and emergencies. If you have no more than than two absences, they will be granted with minimal scrutiny; more absences require more justification.
+**Excused absence policy:** Use the excused absence form to request an excused absence from a quiz or a tutorial section. If you need fewer than four excused absences in total, they will be granted automatically: there is no need to give an explanation if you are confident you will not need four or more. Beyond that, requests require more justification.
 
 **Academic integrity:** You are expected to abide by the [Berkeley honor code](http://teaching.berkeley.edu/berkeley-honor-code). Violating the collaboration policy, or cheating in any other way, will result in a failing grade for the semester and you will be reported to the University Office of Student Conduct.
 
