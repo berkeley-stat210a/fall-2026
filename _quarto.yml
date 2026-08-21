@@ -2,7 +2,17 @@ project:
   type: website
   render:
     - "**/*.qmd"
-    - "!test-ons.qmd"   # OJS scratch page: kept in the repo, not published
+    # Kept in the repo but not published. Quarto renders every .qmd by
+    # default, so unlisted pages are still reachable at guessable URLs.
+    - "!test-ons.qmd"                    # Observable scratch page
+    - "!reader/asymptotics.qmd"          # draft chapters, not yet taught from
+    - "!reader/convergence.qmd"
+    - "!reader/empirical-bayes.qmd"
+    - "!reader/likelihood-inference.qmd"
+    - "!reader/maximum-likelihood.qmd"
+    - "!reader/measure-theory-basics.qmd"
+    - "!reader/multiple-testing.qmd"
+    - "!reader/testing-linear.qmd"
 
 website:
   site-url: https://stat210a.berkeley.edu/fall-2026/

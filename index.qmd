@@ -12,7 +12,7 @@ Stat 210A is an introductory Ph.D.-level course in theoretical statistics. It is
 ::: callout-important
 ## Course enrollment for undergraduates
 
-If you are an undergraduate who wants to take this course, please fill out the [permission code request form](https://docs.google.com/forms/d/e/1FAIpQLScn2Uw0Wl5ARzoSqL-MWXW2dC_0gFHisxj0Et94JMdABm7YRg/viewform?usp=header) to let me know about your background. If you are unsure of your background, you can check the [frequently asked questions](faq.qmd) regarding preparation and review materials.
+If you are an undergraduate who wants to take this course, please fill out the [permission code request form](https://docs.google.com/forms/d/e/1FAIpQLSeykCsfaNmXnN0lFVzlR0B6PyvXbN_VMjHg_-owjaW9tmSlqA/viewform?usp=header) to let me know about your background. If you are unsure of your background, you can check the [frequently asked questions](faq.qmd) regarding preparation and review materials.
 :::
 
 ## Resources
