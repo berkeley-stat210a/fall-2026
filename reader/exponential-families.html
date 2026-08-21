@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Will Fithian">
+
+<title>Exponential Families</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7b1b06e26e1e2798ccde3208f86b5bbd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-B8G2041HSB"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-B8G2041HSB', { 'anonymize_ip': true});
+</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script async="" src="https://siteimproveanalytics.com/js/siteanalyze_6294756.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reader/introduction.html">Course Reader</a></li><li class="breadcrumb-item"><a href="../reader/exponential-families.html">Exponential Families</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/stat_bear.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Stat 210a</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-stat210a/fall-2026" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home / Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Logistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../calendar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Materials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../handwritten-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Handwritten notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../recitation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recitation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../old-exams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Old exams</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Reader</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical models and estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/exponential-families.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exponential Families</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/sufficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sufficiency</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/completeness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Completeness, Ancillarity, and Basu’s Theorem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/unbiased-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unbiased Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/score-fisher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Score Function and Fisher Information</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/bayes-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayes Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/bayes-interpretation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interpretations of Probability and Sources of Priors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/bayes-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chain Monte Carlo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/jamesstein.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The James-Stein Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/minimax-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimax Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing and the Neyman-Pearson Lemma</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/testing-one-parameter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Testing with One Real Parameter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/testing-interpretation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">p-values, confidence regions, and (mis-)interpreting Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reader/testing-nuisance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Testing with Nuisance Parameters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exponential-family-structure" id="toc-exponential-family-structure" class="nav-link active" data-scroll-target="#exponential-family-structure">Exponential family structure</a></li>
+  <li><a href="#differential-identities" id="toc-differential-identities" class="nav-link" data-scroll-target="#differential-identities">Differential identities</a>
+  <ul class="collapse">
+  <li><a href="#mean-of-tx" id="toc-mean-of-tx" class="nav-link" data-scroll-target="#mean-of-tx">Mean of <span class="math inline">\(T(X)\)</span></a></li>
+  <li><a href="#variance-of-tx" id="toc-variance-of-tx" class="nav-link" data-scroll-target="#variance-of-tx">Variance of <span class="math inline">\(T(X)\)</span></a></li>
+  <li><a href="#moment-generating-function-and-cumulant-generating-function" id="toc-moment-generating-function-and-cumulant-generating-function" class="nav-link" data-scroll-target="#moment-generating-function-and-cumulant-generating-function">Moment-generating function and cumulant-generating function</a></li>
+  </ul></li>
+  <li><a href="#other-parameterizations" id="toc-other-parameterizations" class="nav-link" data-scroll-target="#other-parameterizations">Other parameterizations</a></li>
+  <li><a href="#exponential-tilting" id="toc-exponential-tilting" class="nav-link" data-scroll-target="#exponential-tilting">Exponential tilting</a></li>
+  <li><a href="#visualization-of-exponential-tilting" id="toc-visualization-of-exponential-tilting" class="nav-link" data-scroll-target="#visualization-of-exponential-tilting">Visualization of exponential tilting</a></li>
+  <li><a href="#repeated-sampling-from-exponential-families" id="toc-repeated-sampling-from-exponential-families" class="nav-link" data-scroll-target="#repeated-sampling-from-exponential-families">Repeated sampling from exponential families</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reader/introduction.html">Course Reader</a></li><li class="breadcrumb-item"><a href="../reader/exponential-families.html">Exponential Families</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exponential Families</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Will Fithian </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><span class="math display">\[
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\td}{\,\textrm{d}}
+\newcommand{\simiid}{\stackrel{\textrm{i.i.d.}}{\sim}}
+\newcommand{\simind}{\stackrel{\textrm{ind.}}{\sim}}
+\newcommand{\eqas}{\stackrel{\textrm{a.s.}}{=}}
+\newcommand{\eqPas}{\stackrel{\cP\textrm{-a.s.}}{=}}
+\newcommand{\eqmuas}{\stackrel{\mu\textrm{-a.s.}}{=}}
+\newcommand{\eqD}{\stackrel{D}{=}}
+\newcommand{\indep}{\perp\!\!\!\!\perp}
+\DeclareMathOperator*{\minz}{minimize\;}
+\DeclareMathOperator*{\maxz}{maximize\;}
+\DeclareMathOperator*{\argmin}{argmin\;}
+\DeclareMathOperator*{\argmax}{argmax\;}
+\newcommand{\Var}{\textnormal{Var}}
+\newcommand{\Cov}{\textnormal{Cov}}
+\newcommand{\Corr}{\textnormal{Corr}}
+\newcommand{\ep}{\varepsilon}
+\]</span></p>
+<section id="exponential-family-structure" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-family-structure">Exponential family structure</h2>
+<p>Thus far we have discussed statistical models in the abstract without making any assumptions about them. Exponential families, the topic of this lecture, are models with a special structure that makes them especially easy to work with.</p>
+<!--# Rewrite this to give the more general structure first and then call out the parameterization later. Also, next time maybe do sufficient statistics before exponential families? -->
+<p>We say the model <span class="math inline">\(\cP = \{P_\eta:\eta \in \Xi\}\)</span> is an <span class="math inline">\(s\)</span><em>-parameter</em> <em>exponential family</em> if it is defined by a family of densities of the form:</p>
+<p><span id="eq-expo-fam"><span class="math display">\[
+p_\eta(x) = e^{\eta'T(x) - A(\eta)}h(x),
+\tag{1}\]</span></span></p>
+<p>all with respect to a common <em>dominating measure</em> <span class="math inline">\(\mu\)</span>, i.e.&nbsp;a measure <span class="math inline">\(\mu\)</span> such that <span class="math inline">\(P_\eta \ll \mu\)</span> for all <span class="math inline">\(\eta\in \Xi\)</span>.</p>
+<p>The different parts of the expression in <a href="#eq-expo-fam" class="quarto-xref">Equation&nbsp;1</a> have distinct names referring to the role they play in defining the density:</p>
+<p><span class="math display">\[
+\begin{aligned}
+T&amp;:\; \cX \to \RR^s &amp;\qquad &amp;\text{ is called the {\it sufficient statistic}}\\
+h&amp;:\; \cX \to [0,\infty) &amp;\qquad &amp;\text{ is called the {\it carrier density} or {\it base density}}\\
+\eta &amp;\in \Xi \subseteq \RR^s &amp;\qquad &amp;\text{ is called the {\it natural parameter}}\\
+A&amp;:\; \Xi \to \RR &amp;\qquad &amp;\text{ is called the {\it log-partition function}}
+\end{aligned}
+\]</span></p>
+<p>The function <span class="math inline">\(A(\eta)\)</span> is totally determined by <span class="math inline">\(T\)</span> and <span class="math inline">\(h\)</span>, and plays the role of normalizing the density so that <span class="math inline">\(P_\eta(\cX) = 1\)</span>:</p>
+<p><span id="eq-log-partition"><span class="math display">\[
+A(\eta) = \log\left( \int_\cX e^{\eta'T(x)}h(x)\td\mu(x)\right) \leq \infty
+\tag{2}\]</span></span></p>
+<p>If <span class="math inline">\(A(\eta) = \infty\)</span> then there is no way to normalize <span class="math inline">\(p_\eta\)</span>, so <span class="math inline">\(\eta\)</span> is not an allowed value for the natural parameter to take. The <em>natural parameter space</em>, which we denote <span class="math inline">\(\Xi_1\)</span>, is the set of all <span class="math inline">\(\eta\)</span> values for which the family is normalizable:</p>
+<p><span class="math display">\[
+\Xi_1 = \{\eta:\; A(\eta) &lt; \infty\} \subseteq \RR^s.
+\]</span></p>
+<p>We will show in Homework 1 that <span class="math inline">\(A(\eta)\)</span> is a convex function, so <span class="math inline">\(\Xi_1\)</span> is a convex set.</p>
+<p>Note that, because <span class="math inline">\(\mu\)</span> is allowed to be an arbitrary measure, <span class="math inline">\(h(x)\)</span> also plays an inessential role since we could always absorb it into the base measure <span class="math inline">\(\mu\)</span>. More precisely, suppose we define a new dominating measure <span class="math inline">\(\nu\)</span> whose density with respect to <span class="math inline">\(\mu\)</span> is <span class="math inline">\(h\)</span> (informally we can write <span class="math inline">\(\td\nu = h\td\mu\)</span>). Then <span class="math inline">\(P_\eta\)</span>, which had density <span class="math inline">\(e^{\eta'T(x)}h(x)\)</span> with respect to <span class="math inline">\(\mu\)</span>, now has density <span class="math inline">\(e^{\eta'T(x)}\)</span> with respect to <span class="math inline">\(\nu\)</span>.</p>
+<p>As a result, if we were aiming for maximal parsimony we could assume without loss of generality that <span class="math inline">\(h(x) = 1\)</span>, removing it from the definition <a href="#eq-expo-fam" class="quarto-xref">Equation&nbsp;1</a> and replacing <span class="math inline">\(\mu\)</span> with our new, bespoke measure <span class="math inline">\(\nu\)</span>. However, it is convenient to leave <a href="#eq-expo-fam" class="quarto-xref">Equation&nbsp;1</a> as is if it allows us to take <span class="math inline">\(\mu\)</span> to be some simple default measure like a counting measure or Lebesgue measure. In that case, <span class="math inline">\(p_\eta\)</span> will be a standard pmf or pdf, so we can discuss it without going over the head of anyone who lacks a background in measure theory.</p>
+<p><strong>Example (Poisson):</strong> The Poisson distribution <span class="math inline">\(\textrm{Pois}(\lambda)\)</span> has probability mass function</p>
+<p><span class="math display">\[
+p_\lambda(x) = \frac{\lambda^x e^{-\lambda}}{x!}, \quad \textrm{ on } x = 0, 1, 2, \ldots.
+\]</span></p>
+<p>Formally this pmf is a density over the counting measure on the set of non-negative integers <span class="math inline">\(\ZZ_+ = \{0,1,\ldots\}\)</span>.</p>
+<p>Letting <span class="math inline">\(\lambda\)</span> range over <span class="math inline">\([0, \infty)\)</span> yields an exponential family, but it is not immediately obvious from the form of the density. To see this, we need to massage <span class="math inline">\(p_\lambda(x)\)</span> a bit, by observing that</p>
+<p><span class="math display">\[
+p_\lambda(x) = \exp\{(\log \lambda) x - \lambda\}\frac{1}{x!}.
+\]</span></p>
+<p>Now we see that we can reparameterize the family by setting <span class="math inline">\(\eta = \log\lambda\)</span>, leading to</p>
+<p><span class="math display">\[
+p_\eta(x) = \exp\{\eta x - e^\eta\} \frac{1}{x!}.
+\]</span> At this point, we immediately recognize <span class="math inline">\(p_\eta\)</span> as an exponential family with sufficient statistic <span class="math inline">\(T(x) = x\)</span>, and base density <span class="math inline">\(h(x) = \frac{1}{x!}\)</span>, and log-partition function <span class="math inline">\(A(\eta) = e^{\eta}\)</span>.</p>
+<p>Note that this is not the only way to decompose the Poisson distribution as an exponential family. For example, we could just as well take <span class="math inline">\(T(x) = x/2\)</span>; then we would have <span class="math inline">\(\eta = 2\log\lambda\)</span> and <span class="math inline">\(A(\eta) = e^{\eta/2}\)</span>. Or, we could take <span class="math inline">\(T(x) = x + 1\)</span> and <span class="math inline">\(A(\eta) = e^{\eta} + \eta\)</span>.</p>
+<p>This is not just a property of the Poisson distribution; the decomposition is generally non-unique for exponential families. For any exponential family of the form <a href="#eq-expo-fam" class="quarto-xref">Equation&nbsp;1</a> , if <span class="math inline">\(U \in \RR^{s\times s}\)</span> is invertible and <span class="math inline">\(v \in \RR^s\)</span> then we can write the same density as <span class="math inline">\(e^{\zeta'S(x) - B(\zeta)}h(x)\)</span>, for new sufficient statistic <span class="math inline">\(S(x) = U T(x) + v\)</span>, new natural parameter <span class="math inline">\(\zeta = (U^{-1})'\eta\)</span>, and and new log-partition function <span class="math inline">\(B(\zeta) = A(U'\zeta) + \zeta'v\)</span>. So “the” sufficient statistic of an exponential family is defined only up to invertible affine transformations.</p>
+</section>
+<section id="differential-identities" class="level2">
+<h2 class="anchored" data-anchor-id="differential-identities">Differential identities</h2>
+<p>Exponentiating <a href="#eq-log-partition" class="quarto-xref">Equation&nbsp;2</a>, we obtain the equation</p>
+<p><span id="eq-partition"><span class="math display">\[
+e^{A(\eta)} = \int_\cX e^{\eta'T(x)}h(x)\td\mu(x)
+\tag{3}\]</span></span></p>
+<p>We can derive many interesting identities by differentiating this function, and related functions, with respect to <span class="math inline">\(\eta\)</span>. We will always evaluate derivatives by differentiating under the integral sign. This is not always a correct operation, but by Theorem 2.4 in Keener, it is correct on the interior of the natural parameter space <span class="math inline">\(\Xi_1\)</span>. We refer the reader to Keener for details.</p>
+<section id="mean-of-tx" class="level3">
+<h3 class="anchored" data-anchor-id="mean-of-tx">Mean of <span class="math inline">\(T(X)\)</span></h3>
+<p>Partially differentiating <a href="#eq-partition" class="quarto-xref">Equation&nbsp;3</a> once with respect to a generic coordinate <span class="math inline">\(\eta_j\)</span>, for <span class="math inline">\(j =1, \ldots, s\)</span>, we obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial}{\partial \eta_j} e^{A(\eta)} &amp;= \int_\cX \frac{\partial}{\partial \eta_j} e^{\eta'T(x)}h(x)\td\mu(x)\\[7pt]
+e^{A(\eta)} \frac{\partial A}{\partial \eta_j}(\eta) &amp;= \int_\cX T_j(x) e^{\eta'T(x)}h(x)\td\mu(x)\\[7pt]
+\frac{\partial A}{\partial \eta_j}(\eta) &amp;= \int_\cX T_j(x) e^{\eta'T(x) - A(\eta)}h(x)\td\mu(x)\\[7pt]
+&amp;= \EE_\eta \left[\,T_j(X)\,\right]\\
+\end{aligned}
+\]</span></p>
+<p>Arranging these partial derivatives into a vector, we obtain</p>
+<p><span class="math display">\[
+\nabla A(\eta) = \EE_\eta\left[\,T(X)\,\right],
+\]</span></p>
+<p>which gives us a very convenient method for evaluating the expectation of the sufficient statistic.</p>
+</section>
+<section id="variance-of-tx" class="level3">
+<h3 class="anchored" data-anchor-id="variance-of-tx">Variance of <span class="math inline">\(T(X)\)</span></h3>
+<p>Pushing our luck further, we can take a second partial derivative:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial^2}{\partial \eta_j\partial \eta_k} e^{A(\eta)} &amp;= \int_\cX \frac{\partial^2}{\partial \eta_j\partial \eta_k} e^{\eta'T(x)}h(x)\td\mu(x)\\[7pt]
+e^{A(\eta)}\left(\frac{\partial^2 A}{\partial \eta_j\partial \eta_k} + \frac{\partial A}{\partial \eta_j} \frac{\partial A}{\partial \eta_k} \right)&amp;= \int_\cX T_j(x) T_k(x)e^{\eta'T(x)}h(x)\td\mu(x)\\[7pt]
+\frac{\partial^2 A}{\partial \eta_j\partial \eta_k} + \EE_\eta[T_j(X)]\EE_\eta[T_k(X)] &amp;= \EE_\eta \left[\,T_j(X) T_k(X)\,\right]\\
+\frac{\partial^2 A}{\partial \eta_j\partial \eta_k} &amp;= \text{Cov}_\eta\left(T_j(X), T_k(X)\right).
+\end{aligned}
+\]</span></p>
+<p>Again, collecting these second partials into a Hessian matrix gives us</p>
+<p><span class="math display">\[
+\nabla^2 A(\eta) = \text{Var}_\eta(T(X)),
+\]</span></p>
+<p>where the right-hand side denotes the <span class="math inline">\(s\times s\)</span> variance-covariance matrix of the random vector <span class="math inline">\(T(X)\)</span>.</p>
+<p><strong>Example (Poisson, continued):</strong> As we showed above, in the Poisson exponential family the sufficient statistic is <span class="math inline">\(T(X)=X\)</span>, the natural parameter is <span class="math inline">\(\eta = \log\lambda\)</span>, and the log-partition function is <span class="math inline">\(A(\eta) = e^\eta \;(=\lambda)\)</span>.</p>
+<p><strong>Note:</strong> This calculation would not have worked correctly if we had instead said <span class="math inline">\(A(\eta) = \lambda\)</span>, and differentiated that expression with respect to <span class="math inline">\(\lambda\)</span>. We would then get <span class="math inline">\(\EE_\eta[X] = 1\)</span> and <span class="math inline">\(\text{Var}_\eta(X) = 0\)</span>, which are clearly incorrect.</p>
+</section>
+<section id="moment-generating-function-and-cumulant-generating-function" class="level3">
+<h3 class="anchored" data-anchor-id="moment-generating-function-and-cumulant-generating-function">Moment-generating function and cumulant-generating function</h3>
+<p>The moment generating function (MGF) of a <span class="math inline">\(d\)</span>-dimensional random vector <span class="math inline">\(X\sim P\)</span> is defined as <span class="math inline">\(M^X(u) = \EE[e^{u'X}]\)</span>, for <span class="math inline">\(u\in \RR^d\)</span>. If the MGF is well-defined in a neighborhood of <span class="math inline">\(u=0\)</span>, then we can use it to calculated moments of <span class="math inline">\(X\)</span> by evaluating its derivatives at 0.</p>
+<p>We can show this using manipulations very similar to the ones we saw above. To evaluate the first moment of <span class="math inline">\(X_j\)</span>, we can differentiate once with respect to <span class="math inline">\(u_j\)</span>, since</p>
+<p><span class="math display">\[
+\frac{\partial}{\partial u_j} M^X(u) = \int_\cX \frac{\partial}{\partial u_j} e^{u'x}\td P(x) = \int_\cX x_j e^{u'x}\td P(x) = \int_\cX x_j e^{u'x} \td P(x).
+\]</span></p>
+<p>Here we have again assumed that we can differentiate under the integral sign; this is a technical condition that we would check if we were being more careful.</p>
+<p>Evaluating the derivative at <span class="math inline">\(u=0\)</span>, we obtain <span class="math inline">\(\frac{\partial}{\partial u_j} M^X(0) = \int_\cX x_j \td P(x) = \EE[X_j]\)</span>. Moreover, we can repeat this trick as many times as we want, leading to a formula for mixed partial derivatives of any order:</p>
+<p><span id="eq-mgf"><span class="math display">\[
+\left.\frac{\partial^{m_1 + \cdots + m_d}}{\partial u_1^{m_1}\cdots\partial u_d^{m_d}} M^X(u)\right|_{u=0} = \left.\int_{\cX} x_1^{m_1}\cdots x_d^{m_d} e^{u'x}\td P(x)\right|_{u=0} = \EE\left[\,X_1^{m_1} \cdots X_d^{m_d}\,\right].
+\tag{4}\]</span></span></p>
+<p>The MGF is therefore very useful for evaluating moments of <span class="math inline">\(X\)</span>. It is also useful for finding distributions of sums of independent random variables, because <span class="math inline">\(M^{X + Y}(u) = M^X(u)M^Y(u),\)</span> if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent. If two random variables have the same MGF then they have the same distribution.</p>
+<p>In an exponential family, the MGF of <span class="math inline">\(T(X)\)</span>, under sampling from <span class="math inline">\(P_\eta\)</span>, is simple to evaluate:</p>
+<p><span class="math display">\[
+\begin{aligned}
+M^{T(X)}_\eta(u) &amp;= \EE_\eta\left[\,e^{u'T(X)}\,\right]\\[5pt]
+&amp;= \int_\cX e^{u'T(x)}e^{\eta'T(x) - A(\eta)}h(x)\td\mu(x) \\[5pt]
+&amp;= e^{-A(\eta)}\int_\cX e^{(u+\eta)'T(x)} h(x)\td\mu(x)\\[5pt]
+&amp;= e^{A(\eta+u)-A(\eta)}
+\end{aligned}
+\]</span></p>
+<p><strong>Example (Poisson, continued):</strong> The MGF for <span class="math inline">\(X \sim \text{Pois}(\lambda)\)</span>, with <span class="math inline">\(\eta = \log\lambda\)</span>, is</p>
+<p><span class="math display">\[
+M^{X}_\eta(u) = \exp\{e^{\eta + u} - e^{\eta}\} = \exp\{\lambda (e^u - 1)\}
+\]</span></p>
+<p>To see how the MGF is useful, suppose we have <span class="math inline">\(X_i \sim \text{Pois}(\lambda_i)\)</span>, independently for <span class="math inline">\(i = 1,2,\ldots,n\)</span>, and we want to know the distribution of <span class="math inline">\(X_+ = \sum_i X_i\)</span>. Then we can multiply the MGF’s for <span class="math inline">\(X_1,\ldots,X_n\)</span> together to obtain the MGF for <span class="math inline">\(X_+\)</span>:</p>
+<p><span class="math display">\[
+M^{X_+}(u) = \prod_i M_{\eta_i}^{X_i}(u) = \exp\left\{\sum_i \lambda_i (e^u-1)\right\}.
+\]</span></p>
+<p>As a result, we have <span class="math inline">\(X_+ \sim \text{Pois}(\lambda_+)\)</span>, for <span class="math inline">\(\lambda_+ = \sum_j \lambda_i\)</span>.</p>
+<p>Likewise, the closely related <em>cumulant-generating function</em> (CGF) is defined as the log of the MGF:</p>
+<p><span class="math display">\[
+K^{T(X)}_\eta(u) = \log M^{T(X)}_\eta(u) = A(\eta+u)-A(\eta)
+\]</span></p>
+<p>Evaluating the CGF’s derivatives at <span class="math inline">\(u=0\)</span> gives us the distribution’s <em>cumulants</em> instead of its moments (the first two cumulants are the mean and variance). <span class="math inline">\(K_\eta^{T(X)}\)</span> and <span class="math inline">\(A\)</span> are closely related. In particular, note that</p>
+<p><span class="math display">\[
+\left.\frac{\partial}{\partial \eta_j}K_\eta^{T}(u)\right|_{u=0} = \frac{\partial}{\partial \eta_j} A(\eta),
+\]</span></p>
+<p>This relationship explains why we can also get cumulants for <span class="math inline">\(T(X)\)</span> under <span class="math inline">\(P_\eta\)</span> by differentiating <span class="math inline">\(A(\eta)\)</span>. It also partly explains why <span class="math inline">\(A(\eta)\)</span> is sometimes referred to as the CGF even though it is generally not the CGF for <span class="math inline">\(T(X)\)</span>.</p>
+</section>
+</section>
+<section id="other-parameterizations" class="level2">
+<h2 class="anchored" data-anchor-id="other-parameterizations">Other parameterizations</h2>
+<p>Sometimes instead of parameterizing <span class="math inline">\(\cP\)</span> by the natural parameter <span class="math inline">\(\eta\)</span>, it is more convenient to parameterize the family by another parameter <span class="math inline">\(\theta\)</span>. Then we can write the density in terms of this alternative parameterization as</p>
+<p><span class="math display">\[
+p_\theta(x) = e^{\eta(\theta)'T(x) - B(\theta)}h(x), \quad \text{ where } B(\theta) = A(\eta(\theta)).
+\]</span></p>
+<p>The Poisson distribution, if indexed by the mean <span class="math inline">\(\lambda\)</span>, is an example of such an alternative parameterization, with <span class="math inline">\(\eta(\lambda) = \log\lambda\)</span> and <span class="math inline">\(B(\lambda) = \lambda\)</span>. Another example is the normal family:</p>
+<p><strong>Example (Normal):</strong> Consider the model <span class="math inline">\(X\sim \cN(\mu, \sigma^2)\)</span>, for <span class="math inline">\(\mu\in\RR\)</span> and <span class="math inline">\(\sigma^2&gt;0\)</span>. The usual parameter vector for this problem is <span class="math inline">\(\theta = (\mu, \sigma^2)\)</span>. The density in that parameterization is</p>
+<p><span class="math display">\[
+p_\theta(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left\{-(\mu-x)^2/2\sigma^2\right\}.
+\]</span></p>
+<p>Expanding the square and raising the <span class="math inline">\(\sqrt{2\pi\sigma^2}\)</span> into the exponent, we can massage the density into the exponential family structure we are looking for:</p>
+<p><span class="math display">\[
+p_\theta(x)
+= \exp\left\{\frac{\mu}{\sigma^2} x - \frac{1}{2\sigma^2}x^2 - \frac{\mu}{2\sigma^2} - \frac{1}{2}\log\left(2\pi\sigma^2\right)\right\},
+\]</span></p>
+<p>which we can recognize as an exponential family with sufficient statistic <span class="math inline">\(T(x) = (x,x^2)\)</span>, natural parameter <span class="math inline">\(\eta(\theta) = (\mu/\sigma^2,-1/2\sigma^2)\)</span>, carrier density <span class="math inline">\(h(x)=1\)</span>, and log-partition function</p>
+<p><span class="math display">\[
+B(\theta) = \frac{\mu^2}{2\sigma^2} + \frac{1}{2}\log\left(2\pi\sigma^2\right).
+\]</span></p>
+<p>We can rewrite the log-partition function in terms of <span class="math inline">\(\eta_1 = \mu^2/2\sigma^2\)</span> and <span class="math inline">\(\eta_2=-1/2\sigma^2\)</span> to complete the natural parameterization:</p>
+<p><span class="math display">\[
+p_\eta(x) = e^{\eta'T(x) - A(\eta)}, \quad \text{ for } A(\eta) = \frac{-\eta_1^2}{4\eta_2} + \frac{1}{2}\log(-\pi/\eta_2)
+\]</span></p>
+<p>Hence, the Gaussian is the (only) exponential family with sufficient statistic <span class="math inline">\(T(x) = (x,x^2)\)</span>, and carrier density <span class="math inline">\(h(x)=1\)</span>, with respect to the Lebesgue measure on <span class="math inline">\(\RR\)</span>.</p>
+<p><strong>Example (Binomial):</strong> Next, consider the model <span class="math inline">\(X \sim \text{Binom}(n,\theta)\)</span>, which has pmf</p>
+<p><span class="math display">\[
+p_\theta(x) = \theta^x (1-\theta)^{n-x}\binom{n}{x}.
+\]</span></p>
+<p>We can again massage this into canonical form by raising the parameters into the exponent and collecting terms</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_\theta(x)
+&amp;= \exp\left\{x\log\theta + (n-x)\log(1-\theta)\right\}\binom{n}{x}\\
+&amp;= \exp\left\{x\log\left(\frac{\theta}{1-\theta}\right)-n\log(1-\theta)\right\}\binom{n}{x},
+\end{aligned}
+\]</span></p>
+<p>which we recognize as an exponential family structure with <span class="math inline">\(T(x)=x\)</span>, natural parameter <span class="math inline">\(\eta=\log\left(\frac{\theta}{1-\theta}\right)\)</span> The natural parameter <span class="math inline">\(\eta\)</span> is called the <em>log-odds</em> or <em>logit</em>, which is used in classification models such as logistic regression and the many extensions thereof.</p>
+<p><strong>Example (Beta):</strong> The Beta distribution is a common family of distributions on the unit interval. If <span class="math inline">\(X \sim \text{Beta}(\alpha,\beta)\)</span> then <span class="math inline">\(X\)</span> has pdf</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_{\alpha,\beta}(x)
+&amp;= \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}\\[5pt]
+&amp;= \exp\{\alpha \log x + \beta\log (1-x) - \log B(\alpha,\beta)\}\cdot \frac{1}{x(1-x)},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(B(\alpha,\beta) = \int_0^1 t^{\alpha-1}(1-t)^{\beta-1}\td t\)</span> is called the <em>beta function</em>. We recognize this as an exponential family with <span class="math inline">\(T(x) = (\log x, \log(1-x))\)</span>, <span class="math inline">\(\eta = (\alpha,\beta)\)</span>, and <span class="math inline">\(h(x) = \frac{1}{x(1-x)}\)</span>, though as always there are other ways to decompose the density.</p>
+<p>In addition to these examples, we could add most of the distributional families detailed on Wikipedia: the Gamma, multinomial, Dirichlet, Pareto, Wishart, and many others. We will see more exponential family examples throughout the course.</p>
+</section>
+<section id="exponential-tilting" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-tilting">Exponential tilting</h2>
+<p>To help interpret what it means for a model to have an exponential family structure, we can think of <span class="math inline">\(p_\eta(x) = e^{\eta'T(x) - A(\eta)} h(x)\)</span> as an <em>exponential tilt</em> of the carrier density <span class="math inline">\(h(x)\)</span>. That is, beginning with <span class="math inline">\(h(x)\)</span>, we first multiply by <span class="math inline">\(e^{\eta'T(x)}\)</span>, increasing the density of points in the sample space for which <span class="math inline">\(\eta'T(x)\)</span> is largest relative to those for which <span class="math inline">\(\eta'T(x)\)</span> is smaller. Then, we re-normalize by <span class="math inline">\(e^{-A(\eta)}\)</span> to obtain a probability distribution.</p>
+<p>This is easiest to understand in a one-parameter family with sufficient statistic <span class="math inline">\(T(X) = X\)</span>, (need to finish)</p>
+</section>
+<section id="visualization-of-exponential-tilting" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-of-exponential-tilting">Visualization of exponential tilting</h2>
+<p>Below we visualize an exponential family on <span class="math inline">\([-1,1]\)</span> with “triangular” base density <span class="math inline">\(h(x) = 1-|x|\)</span> and three sufficient statistics <span class="math inline">\(T_1(X) = X, T_2(X) = X^2,\)</span> and <span class="math inline">\(T_3(X) = \cos(100 X)\)</span>. That is, <span class="math display">\[
+p_\eta(x) \propto e^{\eta_1 x + \eta_2 x^2 + \eta_3 \cos(100 x)} \cdot (1-|x|)
+\]</span></p>
+<p>Use the sliders to “tilt” the density toward each statistic, and see how the density changes.</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="280" data-source-offset="-56"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 279;"><span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>explDistribution <span class="op">=</span> (eta1<span class="op">,</span> eta2<span class="op">,</span> eta3<span class="op">,</span> n <span class="op">=</span> <span class="dv">2000</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">/</span>n)<span class="op">;</span></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> unnorm <span class="op">=</span> x<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> x<span class="op">,</span></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(eta1 <span class="op">*</span> x <span class="op">+</span> eta2 <span class="op">*</span> x <span class="op">*</span> x <span class="op">+</span> eta3 <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">30</span> <span class="op">*</span> x <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span>)) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x))</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normConst <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(unnorm<span class="op">,</span> point <span class="kw">=&gt;</span> point<span class="op">.</span><span class="at">y</span>) <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> unnorm<span class="op">.</span><span class="fu">map</span>(point <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> point<span class="op">.</span><span class="at">x</span><span class="op">,</span></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> point<span class="op">.</span><span class="at">y</span> <span class="op">/</span> normConst</span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a><span class="co">// Interactive controls</span></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>viewof eta1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"η₁"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>})</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>viewof eta2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"η₂"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>})</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a>viewof eta3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="fl">0.3</span><span class="op">,</span> <span class="fl">0.3</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"η₃"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>})</span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate data</span></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">explDistribution</span>(eta1<span class="op">,</span> eta2<span class="op">,</span> eta3)</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a><span class="co">// Find maximum y value for plot scaling</span></span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>maxY <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(data<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="co">// Create plot</span></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>  <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontSize</span><span class="op">:</span> <span class="st">"18px"</span> }<span class="op">,</span></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"X"</span><span class="op">,</span></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>    <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>    <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">60</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> maxY <span class="op">*</span> <span class="fl">1.1</span>]<span class="op">,</span></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Density"</span><span class="op">,</span></span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>    <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>    <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">70</span></span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(data<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"steelblue"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Title</span></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([<span class="st">"Exponential Family Distribution"</span>]<span class="op">,</span> {</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> </span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> maxY <span class="op">*</span> <span class="fl">1.15</span><span class="op">,</span> </span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span><span class="op">,</span> </span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">"bold"</span><span class="op">,</span> </span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>      <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"middle"</span></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="repeated-sampling-from-exponential-families" class="level2">
+<h2 class="anchored" data-anchor-id="repeated-sampling-from-exponential-families">Repeated sampling from exponential families</h2>
+<p>One of the most important properties of exponential families is that a large sample can be summarized by a low-dimensional statistic. Suppose we observe a vector of observations <span class="math inline">\(X = (X_1,\ldots,X_n)\)</span> representing an independent and identically distributed (i.i.d.) sample from an exponential family. Let <span class="math inline">\(p_\eta^{(1)\)</span> denote the density for a single observation:</p>
+<p><span class="math display">\[
+X_1\ldots,X_n \simiid p_\eta^{(1)}(x) = e^{\eta'T(x) - A(\eta)}h(x).
+\]</span></p>
+<p>Then the random vector <span class="math inline">\(X = (X_1,\ldots,X_n)\)</span> follows another closely related exponential family:</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_\eta(x)
+&amp;= \prod_{i=1}^n e^{\eta'T(x_i) - A(\eta)}h(x_i)\\[7pt]
+&amp;= \exp\left\{\eta'\sum_{i=1}^n T(x_i) - nA(\eta)\right\} \prod_{i=1}^n h(x_i).
+\end{aligned}
+\]</span></p>
+<p>This new density <span class="math inline">\(p_\eta\)</span>, which governs the distribution of the entire sample, is an exponential family with the same natural parameter as before, sufficient statistic <span class="math inline">\(\sum_i T(X_i)\)</span>, carrier density <span class="math inline">\(\prod_i h(x_i)\)</span>, and log-partition function <span class="math inline">\(nA(\eta)\)</span>.</p>
+<p>For reasons that will become clearer in the next lecture, it is very significant that the sufficient statistic does not increase in dimension as the sample size grows. This means that the <span class="math inline">\(s\)</span>-dimensional vector <span class="math inline">\(\sum_i T(X_i)\)</span> is for all intents and purposes a complete summary of the entire sample, no matter how large <span class="math inline">\(n\)</span> is.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuLy8gRGVmaW5lIHRoZSBleHBvbmVudGlhbCBmYW1pbHkgZGlzdHJpYnV0aW9uIGZ1bmN0aW9uXG5leHBsRGlzdHJpYnV0aW9uID0gKGV0YTEsIGV0YTIsIGV0YTMsIG4gPSAyMDAwKSA9PiB7XG4gIGNvbnN0IHggPSBkMy5yYW5nZSgtMSwgMSwgMi9uKTtcbiAgY29uc3QgdW5ub3JtID0geC5tYXAoeCA9PiAoe1xuICAgIHg6IHgsXG4gICAgeTogTWF0aC5leHAoZXRhMSAqIHggKyBldGEyICogeCAqIHggKyBldGEzICogTWF0aC5jb3MoMzAgKiB4ICogTWF0aC5QSSkpICogKDEgLSBNYXRoLmFicyh4KSlcbiAgfSkpO1xuICBjb25zdCBub3JtQ29uc3QgPSBkMy5zdW0odW5ub3JtLCBwb2ludCA9PiBwb2ludC55KSAqIDIgLyBuO1xuICByZXR1cm4gdW5ub3JtLm1hcChwb2ludCA9PiAoe1xuICAgIHg6IHBvaW50LngsXG4gICAgeTogcG9pbnQueSAvIG5vcm1Db25zdFxuICB9KSk7XG59XG5cbi8vIEludGVyYWN0aXZlIGNvbnRyb2xzXG52aWV3b2YgZXRhMSA9IElucHV0cy5yYW5nZShbLTUsIDVdLCB7c3RlcDogMC4xLCBsYWJlbDogXCLOt+KCgVwiLCB2YWx1ZTogMH0pXG52aWV3b2YgZXRhMiA9IElucHV0cy5yYW5nZShbLTUsIDVdLCB7c3RlcDogMC4xLCBsYWJlbDogXCLOt+KCglwiLCB2YWx1ZTogMH0pXG52aWV3b2YgZXRhMyA9IElucHV0cy5yYW5nZShbLTAuMywgMC4zXSwge3N0ZXA6IDAuMDEsIGxhYmVsOiBcIs634oKDXCIsIHZhbHVlOiAwfSlcblxuLy8gR2VuZXJhdGUgZGF0YVxuZGF0YSA9IGV4cGxEaXN0cmlidXRpb24oZXRhMSwgZXRhMiwgZXRhMylcblxuLy8gRmluZCBtYXhpbXVtIHkgdmFsdWUgZm9yIHBsb3Qgc2NhbGluZ1xubWF4WSA9IGQzLm1heChkYXRhLCBkID0+IGQueSlcblxuLy8gQ3JlYXRlIHBsb3RcblBsb3QucGxvdCh7XG4gIHdpZHRoOiA4MDAsXG4gIGhlaWdodDogNjAwLFxuICBtYXJnaW5Ub3A6IDYwLFxuICBtYXJnaW5MZWZ0OiAxMDAsXG4gIG1hcmdpbkJvdHRvbTogMTAwLFxuICBtYXJnaW5SaWdodDogNDAsXG4gIHN0eWxlOiB7IGZvbnRTaXplOiBcIjE4cHhcIiB9LFxuICBcbiAgeDoge1xuICAgIGRvbWFpbjogWy0xLCAxXSxcbiAgICBsYWJlbDogXCJYXCIsXG4gICAgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsXG4gICAgbGFiZWxPZmZzZXQ6IDYwXG4gIH0sXG4gIHk6IHtcbiAgICBkb21haW46IFswLCBtYXhZICogMS4xXSxcbiAgICBsYWJlbDogXCJEZW5zaXR5XCIsXG4gICAgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsXG4gICAgbGFiZWxPZmZzZXQ6IDcwXG4gIH0sXG4gIFxuICBtYXJrczogW1xuICAgIFBsb3QubGluZShkYXRhLCB7eDogXCJ4XCIsIHk6IFwieVwiLCBzdHJva2U6IFwic3RlZWxibHVlXCIsIHN0cm9rZVdpZHRoOiAyfSksXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFxuICAgIC8vIFRpdGxlXG4gICAgUGxvdC50ZXh0KFtcIkV4cG9uZW50aWFsIEZhbWlseSBEaXN0cmlidXRpb25cIl0sIHtcbiAgICAgIHg6IDAsIFxuICAgICAgeTogbWF4WSAqIDEuMTUsIFxuICAgICAgZm9udFNpemU6IDE4LCBcbiAgICAgIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLCBcbiAgICAgIHRleHRBbmNob3I6IFwibWlkZGxlXCJcbiAgICB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdldGExJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2V0YTInKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZXRhMycpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../reader";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/stat210a\.berkeley\.edu\/fall-2026\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
