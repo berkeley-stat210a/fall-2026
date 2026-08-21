@@ -1,7 +1,14 @@
 /.quarto/
 /_site/
 .Rproj.user
+.Rhistory
 
 *~
 *.log
 *.aux
+*.dvi
+.DS_Store
+
+# knitr/quarto render caches and generated figures (regenerated on build)
+reader/*_cache/
+reader/*_files/
