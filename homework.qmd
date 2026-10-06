@@ -28,15 +28,15 @@ editor: visual
 
 -   [Homework 11](homework/homework11.pdf) ([LaTeX source](homework/homework11.tex))
 
--   [Homework 11](homework/homework12.pdf) ([LaTeX source](homework/homework12.tex))
+-   [Homework 12](homework/homework12.pdf) ([LaTeX source](homework/homework12.tex))
 
 ## Standing homework instructions
 
 ### Submission format
 
-All homework will be submitted electronically, on Gradescope. Homework submissions do not need to be typeset in LaTeX, and they can be handwritten unless code or figures are required, so long as they are legible; points may be deducted for solutions that are difficult to read. Code can be written in any common programming language: R, Python, and Matlab are all acceptable, but if you want to use something more exotic, check with the GSI first.
+All homework will be submitted electronically, on Gradescope. Homework submissions do not need to be typeset in LaTeX, and they can be handwritten unless code or figures are required, so long as they are legible. Code can be written in any common programming language: R, Python, and Matlab are all acceptable, but if you want to use something more exotic, check with the GSI first.
 
-If you need to write code to answer a question, show your code. If you need to include a plot, make sure the plot is readable, with appropriate axis labels and a legend if necessary. Points will be deducted for very hard-to-read code or plots.
+If you need to write code to answer a question, show your code. If you need to include a plot, make sure the plot is readable, with appropriate axis labels and a legend if necessary.
 
 ### Monte Carlo methods
 
