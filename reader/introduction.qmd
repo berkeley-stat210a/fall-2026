@@ -98,16 +98,14 @@ For now, we'll assume we know what it means for a penny to have a 50% chance of 
 
 Unfortunately, inductive reasoning is not *valid* in the sense meant by logicians or mathematicians. It doesn't matter how many times I've seen real symmetric matrices that had real eigenvalues. Without a proof, I can't make the general claim. There are entertaining examples of patterns being unexpectedly violated in math, such as the [Borwein Integral](https://en.wikipedia.org/wiki/Borwein_integral):
 
-$$
-\begin{aligned}
+$$\begin{aligned}
 \int_0^\infty \frac{\sin x}{x}\,dx &= \frac{\pi}{2}\\[10pt]
 \int_0^\infty \frac{\sin x}{x}\, \frac{\sin(x/3)}{x/3}\,dx &= \frac{\pi}{2}\\[10pt]
 \int_0^\infty \frac{\sin x}{x}\, \frac{\sin(x/3)}{x/3}\, \frac{\sin(x/5)}{x/5}\,dx &= \frac{\pi}{2}\\[10pt]
 &\vdots\\[10pt]
 \int_0^\infty \frac{\sin x}{x}\, \frac{\sin(x/3)}{x/3}\,\cdots\, \frac{\sin(x/13)}{x/13}\,dx &= \frac{\pi}{2}\\[10pt]
 \int_0^\infty \frac{\sin x}{x}\, \frac{\sin(x/3)}{x/3}\,\cdots\, \frac{\sin(x/15)}{x/15}\,dx &= \frac{\pi}{2} - 2.31 \times 10^{-11}.
-\end{aligned}
-$$
+\end{aligned}$$
 
 Bertrand Russell also warned about how inductive inference can go awry in real life:
 
@@ -129,9 +127,9 @@ We seem to be in trouble if we are trying to build a mathematical science of ind
 
 #### Are coins really fair?
 
-Although physical randomizers like coins and dice seem to be the firmest ground on which we can build a theory of probability, recent work has made the surprising finding that most human flippers have a somewhat greater than 50% chance of seeing their coin land on the same side as it started, due to the physics of rotating objects. This was first hypothesized in a theoretical article by Diaconis, Holmes, and Montgomery in 2007, and confirmed in a large experiment by Bartos et al. (2023), in which 48 human coin flippers collectively flipped $n=350,757$ coins — finding, indeed, that $178,079$ ($50.77\%$) of the coins landed on the same side as they started.
+Although physical randomizers like coins and dice seem to be the firmest ground on which we can build a theory of probability, recent work has made the surprising finding that most human flippers have a somewhat greater than 50% chance of seeing their coin land on the same side as it started, due to the physics of rotating objects. This was first hypothesized in a theoretical article by Diaconis, Holmes, and Montgomery in 2007, and confirmed in a large experiment by Bartoš et al. (2023), in which 48 human coin flippers collectively flipped $n=350,757$ coins — finding, indeed, that $178,079$ ($50.77\%$) of the coins landed on the same side as they started.
 
-In fact, Bartos et al. collected a lot more data than this: each of the 48 flippers recorded the full sequence of all of their coin flips, including which type of coin they were using (coins minted in 46 different countries were used). All flippers even had to submit video of themselves flipping the coins. But the analysis in the next section will use only the summary statistic $X = 178,079$, which records the number of flips that landed same-side-up.
+In fact, Bartoš et al. collected a lot more data than this: each of the 48 flippers recorded the full sequence of all of their coin flips, including which type of coin they were using (coins minted in 46 different countries were used). All flippers even had to submit video of themselves flipping the coins. But the analysis in the next section will use only the summary statistic $X = 178,079$, which records the number of flips that landed same-side-up.
 
 #### Frequentist analysis in the binomial model
 
@@ -159,13 +157,13 @@ Beyond just knowing that a same-side bias exists, it is interesting to have some
 
 Another route we could take, if we have a more Bayesian bent, is to introduce another assumption about the distribution that $\theta$ has; for example, that $\theta \sim \text{Unif}[0,1]$. This is a stronger assumption than we made before: in what sense does $\theta$ have this distribution? Compared with the other assumptions, it is very difficult to test: there is only one draw from the distribution of $\theta$, and it is observed only indirectly through the coin flips. However, it turns out in this case not to matter much what prior we picked, in the sense that many other prior distributions would result in almost the same posterior distribution.
 
-If we make this assumption about the distribution of $\theta$, then we can directly calculate the conditional distribution after observing $X = 178,079$. The posterior distribution for $\theta$ can be calculated analytically, giving probability density $$
-\theta \mid X = x \sim  \frac{(n + 1)!}{x!(n-x)!} \theta^x (1-\theta)^{n-x}, \quad \text{ for } \theta \in [0,1].
-$$ This distribution is called the **Beta distribution** with parameters $\alpha = x+1$ and $\beta = n-x+1$. Note that this expression is a probability density for the parameter $\theta$, not a distribution for the data $X$. Once we know the distribution of $\theta$ we can make claims about it: for example, after seeing the data, there is only a $3.8 \times 10^{-20}$ chance that $\theta \leq 0.5$. We can also calculate a $95\%$ Bayesian **credible interval**, which includes $95\%$ of the posterior probability mass. In this case, the interval is $[50.6\%, 50.9\%]$, coinciding with the frequentist confidence interval to several decimal points. The credible interval is making a stronger claim than the confidence interval: it is saying, *in this experiment*, there is a $95\%$ chance that $\theta$ falls in the range we calculated.
+If we make this assumption about the distribution of $\theta$, then we can directly calculate the conditional distribution after observing $X = 178,079$. The posterior distribution for $\theta$ can be calculated analytically, giving probability density
+$$\theta \mid X = x \sim  \frac{(n + 1)!}{x!(n-x)!} \theta^x (1-\theta)^{n-x}, \quad \text{ for } \theta \in [0,1].$$
+This distribution is called the **Beta distribution** with parameters $\alpha = x+1$ and $\beta = n-x+1$. Note that this expression is a probability density for the parameter $\theta$, not a distribution for the data $X$. Once we know the distribution of $\theta$ we can make claims about it: for example, after seeing the data, there is only a $3.8 \times 10^{-20}$ chance that $\theta \leq 0.5$. We can also calculate a $95\%$ Bayesian **credible interval**, which includes $95\%$ of the posterior probability mass. In this case, the interval is $[50.6\%, 50.9\%]$, coinciding with the frequentist confidence interval to several decimal points. The credible interval is making a stronger claim than the confidence interval: it is saying, *after observing the data from this experiment* (i.e., conditional on $X$) there is a $95\%$ chance that $\theta$ falls in the range we calculated. The coverage guarantees of confidence intervals, by contrast, apply with respect to the distribution of the data $X$ *before* it is observed (i.e., unconditionally).
 
 #### Questioning the binomial model
 
-Bartos et al. stated in their paper that the binomial model is not quite correct: some human flippers had more same-side bias than others. We can modify the binomial model to allow for a different same-side probability $\theta_i$ for flipper $i$ over their $n_i$ coin flips (with $\sum_i n_i = n$). If we retain the independence assumption, this leads to a more complex model where $X_i \sim \text{Binom}(n_i,\theta_i)$ independently for each $i = 1, \ldots, 48$.
+Bartoš et al. stated in their paper that the binomial model is not quite correct: some human flippers had more same-side bias than others. We can modify the binomial model to allow for a different same-side probability $\theta_i$ for flipper $i$ over their $n_i$ coin flips (with $\sum_i n_i = n$). If we retain the independence assumption, this leads to a more complex model where $X_i \sim \text{Binom}(n_i,\theta_i)$ independently for each $i = 1, \ldots, 48$.
 
 There was also evidence that the flippers were improving over time. If we want to accommodate this information we can expand the model yet again, to allow $X_{i,t} \sim \text{Bernoulli}(\theta_{i,t})$ independently for $i = 1,\ldots,48$ and $t = 1,\ldots, n_i$. We might add the constraint that for each $i$, we have $\theta_{i,1} \geq \theta_{i,2} \geq \cdots \geq \theta_{i,n_i}$. With $n = 350,757$ parameters, one for every data point, this is effectively a nonparametric model. We will return to these models in future lectures.
 
@@ -179,6 +177,13 @@ This example is complex enough to give us a glimpse of some of the questions we'
 
 3.  **Estimation:** What is a good way to estimate the parameters in each of these models? In the second model with a different $\theta_i$ for each flipper, how can / should our estimate for one flipper be informed by the data from the other $47$ flippers? In the third model, if we want to introduce a parametric functional form for the way $\theta_{i,t}$ changes with time, what would be a good model and how should we estimate it?
 
-4.  **Testing:** In the basic binomial model, if we want to conclude with as much confidence as we can that there is some same-side bias, we might want to test the hypothesis $H_0:\;\theta \leq 0.5$ vs $H_1: \;\theta > 0.5$. As it turns out, there is a unique best way to do this: reject when $X$ is large. In the second model, we might want to test whether we really need different $\theta_i$ values for the different flippers, by testing $H_0:\; \theta_1=\theta_2=\cdots=\theta_{48}$ against $H_1:\; \text{not all } \theta_i \text{ are equal}$. That is, we test the null that the first model was adequate. This is a more complex testing problem for two reasons: our null hypothesis has a nuisance parameter, which may affect the null distribution of any test statistic; and our $48$-dimensional alternative distribution can vary from the $1$-dimensional null model in many, many different directions. As we'll see, it can matter a lot which alternative directions are prioritized by the test we select.
+4.  **Testing:** In the basic binomial model, if we want to conclude with as much confidence as we can that there is some same-side bias, we might want to test the hypothesis $H_0:\;\theta \leq 0.5$ vs $H_1: \;\theta > 0.5$. As it turns out, there is a unique best way to do this: reject when $X$ is large. In the second model, we might want to test whether we really need different $\theta_i$ values for the different flippers, by testing $H_0:\; \theta_1=\theta_2=\cdots=\theta_{48}$ against $H_1:\; \text{not all } \theta_i \text{ are equal}$. That is, we test the null that the first model was adequate. This is a more complex testing problem for two reasons: First, our null hypothesis has a unknown parameter: even if all $\theta_i$ values are truly the same, we still don't know their common value $\theta$, which may affect the null distribution of any test statistic. Second, our $48$-dimensional alternative distribution can vary from the $1$-dimensional null model in many different directions. As we'll see, it can matter a lot which alternative directions are prioritized by the test we select.
 
-5.  **Asymptotics:** In analyzing this data set we will never actually calculate anything like $350,757!$ even though that quantity appears in the equations. In practice we replace the binomial model with an appropriate Normal model, in this case $X \sim \cN(n\theta, n\theta(1-\theta))$, and do the calculations with respect to that model. The normal approximation here is an obvious consequence of the central limit theorem, but we can make similar approximations in a lot of other problems where it is not so obvious *a priori* that this would be possible.
+5.  **Asymptotics:** In analyzing this data set we will never actually calculate anything like $n! = 350,757!$ even though that quantity appears in the equations. In practice we replace the binomial model with an appropriate Normal model, in this case $X \sim \cN(n\theta, n\theta(1-\theta))$, and do the calculations with respect to that model. The normal approximation here is an obvious consequence of the central limit theorem, but we can make similar approximations in a lot of other problems where it is not so obvious *a priori* that this would be possible.
+
+
+## References
+
+[Bartoš et al. (2025). Fair coins tend to land on the same side they started: Evidence from 350,757 flips. Journal of the American Statistical Association, 120(552), 2118–2127.](https://doi.org/10.48550/arXiv.2310.04153)
+
+[Diaconis, P., Holmes, S., & Montgomery, R. (2007). Dynamical bias in the coin toss. SIAM Review, 49(2), 211–235.](https://doi.org/10.1137/S0036144504446436)
